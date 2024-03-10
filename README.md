@@ -6,9 +6,19 @@ This directory contains the dotfiles for my system.
 
 Install these packages, commands for fedora based distro:
 
+### Zsh
+
+```bash
+sudo dnf install zsh
+# Set zsh default shell
+# chsh -s $(which zsh)
+sudo lchsh $USER
+```
+
+
 ### Git
 
-```
+```bash
 sudo dnf install git
 ```
 
@@ -33,3 +43,14 @@ then use GNU stow to create the symlinks
 stow .
 ```
 
+
+## The other stuff
+
+### Neovim
+Install neovim
+
+### Rust
+Install rust and cargo
+
+### Pyton
+Install python and poetry
