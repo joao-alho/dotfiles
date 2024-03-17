@@ -54,3 +54,13 @@ Install rust and cargo
 
 ### Pyton
 Install python and poetry
+
+```zsh
+curl -sSL https://install.python-poetry.org | python3 -
+
+# Enable poetry auto complete with Oh My Zsh
+mkdir $ZSH_CUSTOM/plugins/poetry
+poetry completions zsh > $ZSH_CUSTOM/plugins/poetry/_poetry
+
+# Edit .zshrc and add poetry to the plugins
+```

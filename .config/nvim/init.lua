@@ -344,9 +344,6 @@ require("lazy").setup({
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
 		config = function()
-			-- If you're wondering about lsp vs treesitter, you can check out the wonderfully
-			-- and elegantly composed help section, `:help lsp-vs-treesitter`
-
 			--  This function gets run when an LSP attaches to a particular buffer.
 			--    That is to say, every time a new file is opened that is associated with
 			--    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
@@ -622,18 +619,13 @@ require("lazy").setup({
 	},
 
 	{
-		-- Change the name of the colorscheme plugin below, and then
-		-- change the command in the config to whatever the name of that colorscheme is
-		--
 		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
 		-- "folke/tokyonight.nvim",
 		"rose-pine/neovim",
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme
 		priority = 1000, -- make sure to load this before all the other start plugins
 		config = function()
-			-- Load the colorscheme here
 			vim.cmd.colorscheme("rose-pine")
-
 			-- You can configure highlights by doing something like
 			vim.cmd.hi("Comment gui=none")
 		end,
@@ -692,7 +684,7 @@ require("lazy").setup({
 
 			---@diagnostic disable-next-line: missing-fields
 			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "bash", "c", "html", "lua", "markdown", "vim", "vimdoc" },
+				ensure_installed = { "bash", "c", "html", "lua", "markdown", "vim", "vimdoc", "rust" },
 				-- Autoinstall languages that are not installed
 				auto_install = true,
 				highlight = { enable = true },
