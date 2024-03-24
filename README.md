@@ -43,6 +43,12 @@ then use GNU stow to create the symlinks
 stow .
 ```
 
+can also partially set symlinks like this:
+
+```bash
+cd .config/
+stow -v . -t ~/.config/
+```
 
 ## The other stuff
 
