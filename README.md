@@ -52,6 +52,9 @@ stow -v . -t ~/.config/
 
 ## The other stuff
 
+### Tmux
+Install tmux
+
 ### Neovim
 Install neovim
 
