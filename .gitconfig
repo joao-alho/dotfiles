@@ -3,3 +3,5 @@
 	email = j.pd.alho@gmail.com
 [init]
 	defaultBranch = main
+[oh-my-zsh]
+	hide-dirty = 1
