@@ -79,7 +79,7 @@ vim.keymap.set("n", "<leader>t", ":10split term://zsh<cr>", { desc = "Open [T]er
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
--- TIP: Disable arrow keys in normal mode
+-- Disable arrow keys in normal mode
 vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
 vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
 vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
@@ -91,6 +91,10 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Remap jump half-page to jump and center", noremap = true })
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Remap jump half-page down to jump and center", noremap = true })
+
+-- Center window when moving up and down or searching
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
