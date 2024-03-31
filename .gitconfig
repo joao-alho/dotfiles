@@ -5,3 +5,7 @@
 	defaultBranch = main
 [oh-my-zsh]
 	hide-dirty = 1
+[pull]
+	rebase = true
+[remote "origin"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
