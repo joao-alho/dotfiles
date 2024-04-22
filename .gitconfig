@@ -8,4 +8,4 @@
 [pull]
 	rebase = true
 [remote "origin"]
-	fetch = +refs/heads/*:refs/remotes/origin/*
+	#fetch = +refs/heads/*:refs/remotes/origin/*

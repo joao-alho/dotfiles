@@ -449,7 +449,24 @@ require("lazy").setup({
 			local servers = {
 				-- clangd = {},
 				-- gopls = {},
-				-- pyright = {},
+				ruff_lsp = {
+					capabilities = {
+						hoverProvider = false,
+					},
+				},
+				pyright = {
+					capabilities = {
+						didChangeWatchedFiles = { dynamicRegistration = false },
+					},
+					settings = {
+						Python = {
+							analysis = { ignore = { "*" } },
+						},
+						pyright = {
+							disableOrganizeImports = true,
+						},
+					},
+				},
 				rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
@@ -688,7 +705,7 @@ require("lazy").setup({
 
 			---@diagnostic disable-next-line: missing-fields
 			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "bash", "c", "html", "lua", "markdown", "vim", "vimdoc", "rust" },
+				ensure_installed = { "bash", "c", "html", "lua", "markdown", "vim", "vimdoc", "rust", "python" },
 				-- Autoinstall languages that are not installed
 				auto_install = true,
 				highlight = { enable = true },
