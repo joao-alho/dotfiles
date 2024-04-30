@@ -58,6 +58,15 @@ Install tmux
 ### Neovim
 Install neovim
 
+Telescope requires [ripgrep](https://github.com/BurntSushi/ripgrep)
+```zsh
+sudo dnf install ripgrep
+
+## or
+
+# cargo binstall ripgrep
+```
+
 ### Rust
 Install rust and cargo
 
