@@ -456,10 +456,10 @@ require("lazy").setup({
 				},
 				pyright = {
 					capabilities = {
-						didChangeWatchedFiles = { dynamicRegistration = false },
+						workspace = { didChangeWatchedFiles = { dynamicRegistration = false } },
 					},
 					settings = {
-						Python = {
+						python = {
 							analysis = { ignore = { "*" } },
 						},
 						pyright = {
@@ -468,15 +468,6 @@ require("lazy").setup({
 					},
 				},
 				rust_analyzer = {},
-				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-				--
-				-- Some languages (like typescript) have entire language plugins that can be useful:
-				--    https://github.com/pmizio/typescript-tools.nvim
-				--
-				-- But for many setups, the LSP (`tsserver`) will work just fine
-				-- tsserver = {},
-				--
-
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes { ...},
@@ -705,7 +696,21 @@ require("lazy").setup({
 
 			---@diagnostic disable-next-line: missing-fields
 			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "bash", "c", "html", "lua", "markdown", "vim", "vimdoc", "rust", "python" },
+				ensure_installed = {
+					"bash",
+					"c",
+					"html",
+					"lua",
+					"markdown",
+					"markdown_inline",
+					"vim",
+					"vimdoc",
+					"rust",
+					"python",
+					"json",
+					"sql",
+					"toml",
+				},
 				-- Autoinstall languages that are not installed
 				auto_install = true,
 				highlight = { enable = true },
