@@ -9,3 +9,5 @@
 	rebase = true
 [remote "origin"]
 	#fetch = +refs/heads/*:refs/remotes/origin/*
+[alias]
+    tree = log --graph --decorate --pretty=oneline --abbrev-commit
