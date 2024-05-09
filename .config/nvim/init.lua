@@ -94,8 +94,8 @@ vim.keymap.set("n", "k", "kzz", { noremap = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Remap jump half-page to jump and center", noremap = true })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Remap jump half-page down to jump and center", noremap = true })
 vim.keymap.set("n", "G", "Gzz", { desc = "Remap jump to end of buffer to jump and center", noremap = true })
-vim.keymap.set({ "n", "v" }, "H", "^", { desc = "Remap jump to first non empty char of line" })
-vim.keymap.set({ "n", "v" }, "L", "$", { desc = "Remap jump to end of line" })
+vim.keymap.set({ "n", "v", "o" }, "H", "^", { desc = "Remap jump to first non empty char of line", noremap = true })
+vim.keymap.set({ "n", "v", "o" }, "L", "$", { desc = "Remap jump to end of line", noremap = true })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
