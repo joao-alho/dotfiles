@@ -9,5 +9,7 @@
 	rebase = true
 [remote "origin"]
 	#fetch = +refs/heads/*:refs/remotes/origin/*
+[rerere]
+	enabled = true
 [alias]
-    tree = log --graph --decorate --pretty=oneline --abbrev-commit --pretty=format:'%C(auto)%h%d %s %C(bold black)<%aN>%Creset'
+	tree = log --graph --decorate --pretty=oneline --abbrev-commit --pretty=format:'%C(auto)%h%d %s %C(bold black)<%aN>%Creset'
