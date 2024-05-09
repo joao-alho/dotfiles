@@ -1,0 +1,55 @@
+let mapleader=" "
+
+""" Plugins  --------------------------------
+set surround
+set commentary
+set argtextobj
+set ReplaceWithRegister
+set highlightedyank
+""" Plugin settings -------------------------
+let g:argtextobj_pairs="[:],(:),<:>,{:},':'"
+let g:highlightedyank_highlight_duration = "100"
+
+" <leader> is \
+nnoremap <Esc><Esc> :nohlsearch<CR>
+set clipboard=unnamedplus,unnamed
+set number relativenumber
+set showmode
+set ignorecase=true
+set smartcase=true
+set incsearch
+set scrolloff=20
+set hlsearch
+
+set ideastatusicon=gray
+" better HJKL
+map H ^
+map L $
+" formatting
+nnoremap == :action ReformatCode <CR>
+vnoremap == :action ReformatCode <CR>
+nnoremap -- :action OptimizeImports <CR>
+vnoremap -- :action OptimizeImports <CR>
+" search
+nnoremap U :action FindUsages <CR>
+vnoremap U :action FindUsages <CR>
+" scrolling
+nmap j jzz
+vmap j jzz
+nmap k kzz
+vmap k kzz
+" split window
+nnoremap <leader>sv :action SplitVertically <CR>
+nnoremap <leader>sc :action UnsplitAll <CR>
+map <leader>rn :action RenameElement <CR>
+map <leader>o :action FileStructurePopup <CR>
+""" IdeaVim actions
+nmap K :action ShowHoverInfo <CR>
+nnoremap [[ :action MethodUp <CR>
+nnoremap ]] :action MethodDown <CR>
+nnoremap gh :action Back <CR>zz
+nnoremap gf :action Forward <CR>zz
+nmap gD :action GotoTypeDeclaration <CR>
+nmap gd :action GotoDeclaration <CR>
+" terminal
+nmap <leader>tt :action ActivateTerminalToolWindow <CR>

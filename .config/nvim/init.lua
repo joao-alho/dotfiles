@@ -94,10 +94,11 @@ vim.keymap.set("n", "k", "kzz", { noremap = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Remap jump half-page to jump and center", noremap = true })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Remap jump half-page down to jump and center", noremap = true })
 vim.keymap.set("n", "G", "Gzz", { desc = "Remap jump to end of buffer to jump and center", noremap = true })
+vim.keymap.set({ "n", "v" }, "H", "^", { desc = "Remap jump to first non empty char of line" })
+vim.keymap.set({ "n", "v" }, "L", "$", { desc = "Remap jump to end of line" })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
-
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
@@ -110,7 +111,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Create a terminal buffer
-vim.keymap.set("n", "<leader>t", ":10split term://zsh<cr>", { desc = "Open [T]erminal in new buffer" })
+vim.keymap.set("n", "<leader>tt", ":10split term://zsh<cr>", { desc = "Open [T]erminal in new buffer" })
 vim.api.nvim_create_autocmd("TermOpen", {
 	desc = "Remove line numbers in terminal",
 	group = vim.api.nvim_create_augroup("kickstart-term", { clear = true }),
