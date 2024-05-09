@@ -68,7 +68,6 @@ vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
-vim.keymap.set("n", "<leader>t", ":10split term://zsh<cr>", { desc = "Open [T]erminal in new window" })
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -89,11 +88,13 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+-- Center window when moving up and down or searching
+vim.keymap.set("n", "j", "jzz", { noremap = true })
+vim.keymap.set("n", "k", "kzz", { noremap = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Remap jump half-page to jump and center", noremap = true })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Remap jump half-page down to jump and center", noremap = true })
 vim.keymap.set("n", "G", "Gzz", { desc = "Remap jump to end of buffer to jump and center", noremap = true })
 
--- Center window when moving up and down or searching
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -108,8 +109,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+-- Create a terminal buffer
+vim.keymap.set("n", "<leader>t", ":10split term://zsh<cr>", { desc = "Open [T]erminal in new buffer" })
 vim.api.nvim_create_autocmd("TermOpen", {
-	desc = "remove line numbers in terminal",
+	desc = "Remove line numbers in terminal",
 	group = vim.api.nvim_create_augroup("kickstart-term", { clear = true }),
 	callback = function()
 		vim.wo.number = false
@@ -119,7 +122,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 vim.api.nvim_create_autocmd("WinEnter", {
-	desc = "when enter terminal mode start insert",
+	desc = "When enter terminal mode start insert",
 	group = vim.api.nvim_create_augroup("kickstart-term", { clear = false }),
 	pattern = "term://*",
 	callback = function()
@@ -128,11 +131,24 @@ vim.api.nvim_create_autocmd("WinEnter", {
 })
 
 vim.api.nvim_create_autocmd("TermClose", {
-	desc = "when enter terminal exits, close the window",
+	desc = "When enter terminal exits, close the window",
 	group = vim.api.nvim_create_augroup("kickstart-term", { clear = false }),
 	pattern = "term://*",
 	callback = function()
 		vim.cmd(":q")
+	end,
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	desc = "",
+	group = vim.api.nvim_create_augroup("kickstart-poetry", { clear = true }),
+	callback = function(event)
+		local client_name = vim.lsp.get_client_by_id(event.data.client_id).name
+		if client_name == "pyright" then
+			local path = vim.fn.trim(vim.fn.system({ "poetry", "env", "info", "-p" }))
+			print(path .. "/bin/activate")
+			-- vim.fn.system({ "source", path .. "/bin/activate" })
+		end
 	end,
 })
 
@@ -155,26 +171,9 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
-	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
-
-	-- NOTE: Plugins can also be added by using a table,
-	-- with the first argument being the link and the following
-	-- keys can be used to configure plugin behavior/loading/etc.
-	--
-	-- Use `opts = {}` to force a plugin to be loaded.
-	--
-	--  This is equivalent to:
-	--    require('Comment').setup({})
-
 	-- "gc" to comment visual regions/lines
 	{ "numToStr/Comment.nvim", opts = {} },
-
-	-- Here is a more advanced example where we pass configuration
-	-- options to `gitsigns.nvim`. This is equivalent to the following lua:
-	--    require('gitsigns').setup({ ... })
-	--
-	-- See `:help gitsigns` to understand what the configuration keys do
 	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
 		"lewis6991/gitsigns.nvim",
 		opts = {
@@ -249,8 +248,6 @@ require("lazy").setup({
 			{ "nvim-telescope/telescope-ui-select.nvim" },
 
 			-- Useful for getting pretty icons, but requires special font.
-			--  If you already have a Nerd Font, or terminal set up with fallback fonts
-			--  you can enable this
 			{ "nvim-tree/nvim-web-devicons" },
 		},
 		config = function()
@@ -347,18 +344,10 @@ require("lazy").setup({
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
 		config = function()
-			--  This function gets run when an LSP attaches to a particular buffer.
-			--    That is to say, every time a new file is opened that is associated with
-			--    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-			--    function will be executed to configure the current buffer
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 				callback = function(event)
-					-- NOTE: Remember that lua is a real programming language, and as such it is possible
-					-- to define small helper and utility functions so you don't have to repeat yourself
-					-- many times.
-					--
-					-- In this case, we create a function that lets us more easily define mappings specific
+					-- Create a function that lets us more easily define mappings specific
 					-- for LSP related items. It sets the mode, buffer and description for us each time.
 					local map = function(keys, func, desc)
 						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
@@ -376,9 +365,6 @@ require("lazy").setup({
 					--  Useful when your language has ways of declaring types without an actual implementation.
 					map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
 
-					-- Jump to the type of the word under your cursor.
-					--  Useful when you're not sure what type a variable is and you want to see
-					--  the definition of its *type*, not where it was *defined*.
 					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
 
 					-- Fuzzy find all the symbols in your current document.
@@ -392,17 +378,8 @@ require("lazy").setup({
 						require("telescope.builtin").lsp_dynamic_workspace_symbols,
 						"[W]orkspace [S]ymbols"
 					)
-
-					-- Rename the variable under your cursor
-					--  Most Language Servers support renaming across files, etc.
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-
-					-- Execute a code action, usually your cursor needs to be on top of an error
-					-- or a suggestion from your LSP for this to activate.
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-
-					-- Opens a popup that displays documentation about the word under your cursor
-					--  See `:help K` for why this keymap
 					map("K", vim.lsp.buf.hover, "Hover Documentation")
 
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
@@ -482,8 +459,6 @@ require("lazy").setup({
 									"${3rd}/luv/library",
 									unpack(vim.api.nvim_get_runtime_file("", true)),
 								},
-								-- If lua_ls is really slow on your computer, you can try this instead:
-								-- library = { vim.env.VIMRUNTIME },
 							},
 							completion = {
 								callSnippet = "Replace",
@@ -659,31 +634,33 @@ require("lazy").setup({
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		config = function()
+		opts = {
+			ensure_installed = {
+				"bash",
+				"c",
+				"html",
+				"lua",
+				"markdown",
+				"markdown_inline",
+				"vim",
+				"vimdoc",
+				"rust",
+				"python",
+				"json",
+				"sql",
+				"toml",
+			},
+			auto_install = true,
+			highlight = { enable = true },
+			indent = { enable = true },
+		},
+		config = function(_, opts)
 			-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 
+			-- Prefer git instead of curl in order to improve connectivity in some environments
+			require("nvim-treesitter.install").prefer_git = true
 			---@diagnostic disable-next-line: missing-fields
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = {
-					"bash",
-					"c",
-					"html",
-					"lua",
-					"markdown",
-					"markdown_inline",
-					"vim",
-					"vimdoc",
-					"rust",
-					"python",
-					"json",
-					"sql",
-					"toml",
-				},
-				-- Autoinstall languages that are not installed
-				auto_install = true,
-				highlight = { enable = true },
-				indent = { enable = true },
-			})
+			require("nvim-treesitter.configs").setup(opts)
 		end,
 	},
 })
