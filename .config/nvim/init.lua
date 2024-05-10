@@ -89,11 +89,11 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower win
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Center window when moving up and down or searching
-vim.keymap.set("n", "j", "jzz", { noremap = true })
-vim.keymap.set("n", "k", "kzz", { noremap = true })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Remap jump half-page to jump and center", noremap = true })
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Remap jump half-page down to jump and center", noremap = true })
-vim.keymap.set("n", "G", "Gzz", { desc = "Remap jump to end of buffer to jump and center", noremap = true })
+vim.keymap.set({ "n", "v" }, "j", "jzz", { noremap = true })
+vim.keymap.set({ "n", "v" }, "k", "kzz", { noremap = true })
+vim.keymap.set({ "n", "v" }, "<C-u>", "<C-u>zz", { desc = "Remap jump half-page and center", noremap = true })
+vim.keymap.set({ "n", "v" }, "<C-d>", "<C-d>zz", { desc = "Remap jump half-page and center", noremap = true })
+vim.keymap.set({ "n", "v" }, "G", "Gzz", { desc = "Remap jump to end of buffer and center", noremap = true })
 vim.keymap.set({ "n", "v", "o" }, "H", "^", { desc = "Remap jump to first non empty char of line", noremap = true })
 vim.keymap.set({ "n", "v", "o" }, "L", "$", { desc = "Remap jump to end of line", noremap = true })
 
@@ -137,19 +137,6 @@ vim.api.nvim_create_autocmd("TermClose", {
 	pattern = "term://*",
 	callback = function()
 		vim.cmd(":q")
-	end,
-})
-
-vim.api.nvim_create_autocmd("LspAttach", {
-	desc = "",
-	group = vim.api.nvim_create_augroup("kickstart-poetry", { clear = true }),
-	callback = function(event)
-		local client_name = vim.lsp.get_client_by_id(event.data.client_id).name
-		if client_name == "pyright" then
-			local path = vim.fn.trim(vim.fn.system({ "poetry", "env", "info", "-p" }))
-			print(path .. "/bin/activate")
-			-- vim.fn.system({ "source", path .. "/bin/activate" })
-		end
 	end,
 })
 
@@ -394,14 +381,44 @@ require("lazy").setup({
 					-- When you move your cursor, the highlights will be cleared (the second autocommand).
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					if client and client.server_capabilities.documentHighlightProvider then
+						local highlight_augroup =
+							vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
 						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 							buffer = event.buf,
+							group = highlight_augroup,
 							callback = vim.lsp.buf.document_highlight,
 						})
 
 						vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
 							buffer = event.buf,
+							group = highlight_augroup,
 							callback = vim.lsp.buf.clear_references,
+						})
+
+						vim.api.nvim_create_autocmd("LspDetach", {
+							group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+							callback = function(event2)
+								vim.lsp.buf.clear_references()
+								vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+							end,
+						})
+					end
+					-- The following attempts to setup the necessary environment variables
+					-- to run pyright with Poetry virtual environment
+					-- looks kind of funky but at the moment the Lsp client attaches
+					-- it has alrady started and so the poetry env variables do not take effect until restart
+					if vim.fn.executable("poetry") == 1 and client.name == "pyright" then
+						vim.api.nvim_create_autocmd("BufEnter", {
+							group = vim.api.nvim_create_augroup("kickstart-poetry", { clear = false }),
+							buffer = event.buf,
+							callback = function()
+								local path = vim.fn.trim(vim.fn.system("poetry env info -p 2> /dev/null"))
+								if path and not vim.env.VIRTUAL_ENV then
+									vim.env.VIRTUAL_ENV = path
+									vim.env.PATH = path .. "/bin:" .. vim.env.PATH
+									vim.cmd(":LspRestart")
+								end
+							end,
 						})
 					end
 				end,
@@ -476,6 +493,7 @@ require("lazy").setup({
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format lua code
+				"ruff", -- Used to format python code
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -496,6 +514,17 @@ require("lazy").setup({
 
 	{ -- Autoformat
 		"stevearc/conform.nvim",
+		lazy = false,
+		keys = {
+			{
+				"<leader>f",
+				function()
+					require("conform").format({ async = true, lsp_fallback = true })
+				end,
+				mode = "",
+				desc = "[F]ormat buffer",
+			},
+		},
 		opts = {
 			notify_on_error = false,
 			format_on_save = {
@@ -549,6 +578,10 @@ require("lazy").setup({
 					["<C-n>"] = cmp.mapping.select_next_item(),
 					-- Select the [p]revious item
 					["<C-p>"] = cmp.mapping.select_prev_item(),
+
+					-- Scroll the documentation window [b]ack / [f]orward
+					["<C-b>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
 
 					["<C-y>"] = cmp.mapping.confirm({ select = true }),
 
@@ -617,6 +650,7 @@ require("lazy").setup({
 			--  You could remove this setup call if you don't like it,
 			--  and try some other statusline plugin
 			local statusline = require("mini.statusline")
+			statusline.setup({ use_icons = vim.g.have_nerd_font })
 			statusline.setup()
 
 			-- You can configure sections in the statusline by overriding their
