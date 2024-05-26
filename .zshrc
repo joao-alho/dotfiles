@@ -18,6 +18,6 @@ else
 alias "ll=ls -al"
 alias "vi=nvim"
 alias "vim=nvim"
-#alias "pshell=source $(poetry env info --path)/bin/activate"
+
 #Star Ship
 eval "$(starship init zsh)"
