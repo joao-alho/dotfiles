@@ -56,6 +56,8 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -407,7 +409,7 @@ require("lazy").setup({
 					-- to run pyright with Poetry virtual environment
 					-- looks kind of funky but at the moment the Lsp client attaches
 					-- it has alrady started and so the poetry env variables do not take effect until restart
-					if vim.fn.executable("poetry") == 1 and client.name == "pyright" then
+					if vim.fn.executable("poetry") == 1 and client and client.name == "pyright" then
 						vim.api.nvim_create_autocmd("BufEnter", {
 							group = vim.api.nvim_create_augroup("kickstart-poetry", { clear = false }),
 							buffer = event.buf,
@@ -493,7 +495,6 @@ require("lazy").setup({
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format lua code
-				"ruff", -- Used to format python code
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -680,10 +681,10 @@ require("lazy").setup({
 				"vim",
 				"vimdoc",
 				"rust",
-				"python",
 				"json",
 				"sql",
 				"toml",
+				"yaml",
 			},
 			auto_install = true,
 			highlight = { enable = true },
@@ -701,4 +702,4 @@ require("lazy").setup({
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=4 sts=4 sw=4 et
+-- vim: set ts=4 sts=4 sw=4 et:
