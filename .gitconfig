@@ -13,3 +13,12 @@
 	enabled = true
 [alias]
 	tree = log --graph --decorate --pretty=oneline --abbrev-commit --pretty=format:'%C(auto)%h%d %s %C(bold black)<%aN>%Creset'
+
+[color]
+	pager = no
+[core]
+	pager = nvim -R
+[pager]
+	diff = false
+	config = false
+	branch = false
