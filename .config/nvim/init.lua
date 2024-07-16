@@ -113,32 +113,25 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Create a terminal buffer
-vim.keymap.set("n", "<leader>tt", ":10split term://zsh<cr>", { desc = "Open [T]erminal in new buffer" })
+vim.keymap.set("n", "<leader>tt", function()
+	-- create a new window
+	vim.cmd.new()
+	-- move to window below current
+	vim.cmd.wincmd("J")
+	vim.api.nvim_win_set_height(0, 14)
+	-- launch terminal in current window
+	vim.cmd.term()
+end, { desc = "Open [T]erminal in new buffer" })
+
 vim.api.nvim_create_autocmd("TermOpen", {
 	desc = "Remove line numbers in terminal",
 	group = vim.api.nvim_create_augroup("kickstart-term", { clear = true }),
 	callback = function()
 		vim.wo.number = false
 		vim.wo.relativenumber = false
+		vim.wo.scrolloff = 0
+		vim.bo.filetype = "terminal"
 		vim.cmd(":startinsert")
-	end,
-})
-
-vim.api.nvim_create_autocmd("WinEnter", {
-	desc = "When enter terminal mode start insert",
-	group = vim.api.nvim_create_augroup("kickstart-term", { clear = false }),
-	pattern = "term://*",
-	callback = function()
-		vim.cmd(":startinsert")
-	end,
-})
-
-vim.api.nvim_create_autocmd("TermClose", {
-	desc = "When enter terminal exits, close the window",
-	group = vim.api.nvim_create_augroup("kickstart-term", { clear = false }),
-	pattern = "term://*",
-	callback = function()
-		vim.cmd(":q")
 	end,
 })
 
