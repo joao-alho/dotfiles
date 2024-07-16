@@ -96,8 +96,13 @@ vim.keymap.set({ "n", "v" }, "k", "kzz", { noremap = true })
 vim.keymap.set({ "n", "v" }, "<C-u>", "<C-u>zz", { desc = "Remap jump half-page and center", noremap = true })
 vim.keymap.set({ "n", "v" }, "<C-d>", "<C-d>zz", { desc = "Remap jump half-page and center", noremap = true })
 vim.keymap.set({ "n", "v" }, "G", "Gzz", { desc = "Remap jump to end of buffer and center", noremap = true })
-vim.keymap.set({ "n", "v", "o" }, "H", "^", { desc = "Remap jump to first non empty char of line", noremap = true })
-vim.keymap.set({ "n", "v", "o" }, "L", "$", { desc = "Remap jump to end of line", noremap = true })
+vim.keymap.set(
+	{ "n", "v", "o", "t" },
+	"H",
+	"^",
+	{ desc = "Remap jump to first non empty char of line", noremap = true }
+)
+vim.keymap.set({ "n", "v", "o", "t" }, "L", "$", { desc = "Remap jump to end of line", noremap = true })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -124,13 +129,21 @@ vim.keymap.set("n", "<leader>tt", function()
 end, { desc = "Open [T]erminal in new buffer" })
 
 vim.api.nvim_create_autocmd("TermOpen", {
-	desc = "Remove line numbers in terminal",
+	desc = "On terminal open remove line numbers",
 	group = vim.api.nvim_create_augroup("kickstart-term", { clear = true }),
 	callback = function()
 		vim.wo.number = false
 		vim.wo.relativenumber = false
 		vim.wo.scrolloff = 0
 		vim.bo.filetype = "terminal"
+		vim.cmd(":startinsert")
+	end,
+})
+
+vim.api.nvim_create_autocmd("TermEnter", {
+	desc = "On enter terminal set insert mode",
+	group = vim.api.nvim_create_augroup("kickstart-term", { clear = true }),
+	callback = function()
 		vim.cmd(":startinsert")
 	end,
 })
@@ -188,26 +201,26 @@ require("lazy").setup({
 	{ -- Useful plugin to show you pending keybinds.
 		"folke/which-key.nvim",
 		event = "VimEnter", -- Sets the loading event to 'VimEnter'
+		opts = {
+			icons = { mappings = false },
+		},
 		config = function() -- This is the function that runs, AFTER loading
-			require("which-key").setup()
+			local wk = require("which-key")
+			wk.setup({
+				icons = { mappings = false },
+			})
 
-			-- Document existing key chains
-			require("which-key").register({
-				["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-				["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
-				["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
-				["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-				["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
+			wk.add({
+				{ "<leader>c", group = "[C]ode" },
+				{ "<leader>d", group = "[D]oument" },
+				{ "<leader>r", group = "[R]ename" },
+				{ "<leader>s", group = "[S]earch" },
+				{ "<leader>w", group = "[W]orkspace" },
+				{ "<leader>t", group = "[T]erminal" },
+				{ "K", desc = "Hover Documentation" },
 			})
 		end,
 	},
-
-	-- NOTE: Plugins can specify dependencies.
-	--
-	-- The dependencies are proper plugin specifications as well - anything
-	-- you do for a plugin at the top level, you can do for a dependency.
-	--
-	-- Use the `dependencies` key to specify the dependencies of a particular plugin
 
 	{ -- Fuzzy Finder (files, lsp, etc)
 		"nvim-telescope/telescope.nvim",
@@ -256,15 +269,18 @@ require("lazy").setup({
 			-- [[ Configure Telescope ]]
 			-- See `:help telescope` and `:help telescope.setup()`
 			require("telescope").setup({
-				-- You can put your default mappings / updates / etc. in here
-				--  All the info you're looking for is in `:help telescope.setup()`
-				--
-				-- defaults = {
-				--   mappings = {
-				--     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-				--   },
-				-- },
-				-- pickers = {}
+				defaults = {
+					file_ignore_patterns = {
+						"node_modules",
+						"build",
+						"dist",
+						".idea",
+						".git",
+						".venv",
+						"target",
+					},
+				},
+				pickers = { find_files = { hidden = true } },
 				extensions = {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown(),
@@ -363,6 +379,7 @@ require("lazy").setup({
 					)
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 					map("K", vim.lsp.buf.hover, "Hover Documentation")
 
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
