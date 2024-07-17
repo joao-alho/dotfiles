@@ -41,12 +41,6 @@ vim.opt.timeoutlen = 300
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
--- Sets how neovim will display certain whitespace in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
---vim.opt.list = true
---vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
 
@@ -121,30 +115,32 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.keymap.set("n", "<leader>tt", function()
 	-- create a new window
 	vim.cmd.new()
-	-- move to window below current
+	-- move window to below current
 	vim.cmd.wincmd("J")
 	vim.api.nvim_win_set_height(0, 14)
 	-- launch terminal in current window
 	vim.cmd.term()
-end, { desc = "Open [T]erminal in new buffer" })
+	vim.wo.number = false
+	vim.wo.relativenumber = false
+	vim.wo.scrolloff = 0
+	vim.bo.filetype = "terminal"
+	vim.cmd.startinsert()
+end, { desc = "Open [T]erminal in new window" })
 
-vim.api.nvim_create_autocmd("TermOpen", {
-	desc = "On terminal open remove line numbers",
+vim.api.nvim_create_autocmd("TermClose", {
+	desc = "On terminal close, close window",
 	group = vim.api.nvim_create_augroup("kickstart-term", { clear = true }),
 	callback = function()
-		vim.wo.number = false
-		vim.wo.relativenumber = false
-		vim.wo.scrolloff = 0
-		vim.bo.filetype = "terminal"
-		vim.cmd(":startinsert")
+		vim.cmd.exit()
 	end,
 })
 
-vim.api.nvim_create_autocmd("TermEnter", {
+vim.api.nvim_create_autocmd("WinEnter", {
 	desc = "On enter terminal set insert mode",
 	group = vim.api.nvim_create_augroup("kickstart-term", { clear = true }),
+	pattern = "term://*",
 	callback = function()
-		vim.cmd(":startinsert")
+		vim.cmd.startinsert()
 	end,
 })
 
@@ -157,14 +153,6 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
--- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  To update plugins, you can run
---    :Lazy update
---
 -- NOTE: Here is where you install your plugins.
 require("lazy").setup({
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
