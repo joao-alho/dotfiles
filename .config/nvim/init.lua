@@ -410,18 +410,12 @@ require("lazy").setup({
 					-- looks kind of funky but at the moment the Lsp client attaches
 					-- it has alrady started and so the poetry env variables do not take effect until restart
 					if vim.fn.executable("poetry") == 1 and client and client.name == "pyright" then
-						vim.api.nvim_create_autocmd("BufEnter", {
-							group = vim.api.nvim_create_augroup("kickstart-poetry", { clear = false }),
-							buffer = event.buf,
-							callback = function()
-								local path = vim.fn.trim(vim.fn.system("poetry env info -p 2> /dev/null"))
-								if path and not vim.env.VIRTUAL_ENV then
-									vim.env.VIRTUAL_ENV = path
-									vim.env.PATH = path .. "/bin:" .. vim.env.PATH
-									vim.cmd(":LspRestart")
-								end
-							end,
-						})
+						local path = vim.fn.trim(vim.fn.system("poetry env info -p 2> /dev/null"))
+						if path and not vim.env.VIRTUAL_ENV then
+							vim.env.VIRTUAL_ENV = path
+							vim.env.PATH = path .. "/bin:" .. vim.env.PATH
+							vim.cmd(":LspRestart")
+						end
 					end
 				end,
 			})
