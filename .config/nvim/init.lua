@@ -97,6 +97,7 @@ vim.keymap.set(
 	{ desc = "Remap jump to first non empty char of line", noremap = true }
 )
 vim.keymap.set({ "n", "v", "o", "t" }, "L", "$", { desc = "Remap jump to end of line", noremap = true })
+vim.keymap.set("n", "<leader>o", "i<CR><Esc>O", { desc = "Insert line at cursor" })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -132,6 +133,7 @@ vim.api.nvim_create_autocmd("TermClose", {
 	group = vim.api.nvim_create_augroup("kickstart-term", { clear = true }),
 	callback = function()
 		vim.cmd.exit()
+		vim.cmd.enter()
 	end,
 })
 
