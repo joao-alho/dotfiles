@@ -446,7 +446,7 @@ require("lazy").setup({
 						},
 					},
 				},
-				ruff_lsp = {
+				ruff = {
 					capabilities = {
 						hoverProvider = false,
 					},
