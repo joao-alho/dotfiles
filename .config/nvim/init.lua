@@ -207,6 +207,7 @@ require("lazy").setup({
 				{ "<leader>s", group = "[S]earch" },
 				{ "<leader>w", group = "[W]orkspace" },
 				{ "<leader>t", group = "[T]erminal" },
+				{ "<leader>d", group = "[D]bee" },
 				{ "K", desc = "Hover Documentation" },
 			})
 		end,
@@ -604,6 +605,7 @@ require("lazy").setup({
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					{ name = "path" },
+					{ name = "buffer" },
 				},
 			})
 		end,
@@ -700,6 +702,7 @@ require("lazy").setup({
 			require("nvim-treesitter.configs").setup(opts)
 		end,
 	},
+	{ import = "custom.plugins" },
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
