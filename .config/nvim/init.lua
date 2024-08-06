@@ -90,12 +90,7 @@ vim.keymap.set({ "n", "v" }, "k", "kzz", { noremap = true })
 vim.keymap.set({ "n", "v" }, "<C-u>", "<C-u>zz", { desc = "Remap jump half-page and center", noremap = true })
 vim.keymap.set({ "n", "v" }, "<C-d>", "<C-d>zz", { desc = "Remap jump half-page and center", noremap = true })
 vim.keymap.set({ "n", "v" }, "G", "Gzz", { desc = "Remap jump to end of buffer and center", noremap = true })
-vim.keymap.set(
-	{ "n", "v", "o", "t" },
-	"H",
-	"^",
-	{ desc = "Remap jump to first non empty char of line", noremap = true }
-)
+vim.keymap.set({ "n", "v", "o" }, "H", "^", { desc = "Remap jump to first non empty char of line", noremap = true })
 vim.keymap.set({ "n", "v", "o", "t" }, "L", "$", { desc = "Remap jump to end of line", noremap = true })
 vim.keymap.set("n", "<leader>o", "i<CR><Esc>O", { desc = "Insert line at cursor" })
 
