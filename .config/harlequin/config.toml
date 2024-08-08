@@ -1,0 +1,8 @@
+default_profile = "nexxiot"
+
+[profiles.nexxiot]
+adapter = "athena"
+theme = "harlequin"
+limit = 1000
+keymap_name = ["vscode"]
+work_group = "nxAthena-v1"
