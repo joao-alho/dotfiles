@@ -1,10 +1,10 @@
 return {
 	{
 		"kndndrj/nvim-dbee",
-		enabled = false,
+		enabled = true,
 		dependencies = { "MunifTanjim/nui.nvim" },
 		build = function()
-			require("dbee").install("go")
+			require("dbee").install()
 		end,
 		config = function()
 			local source = require("dbee.sources")
@@ -26,15 +26,24 @@ return {
 						{ key = "pf", mode = "", action = "page_first" },
 					},
 				},
+				default_connection = "athena_nx",
 				sources = {
 					source.MemorySource:new({
-						---@diagnostic disable-next-line: missing-fields
 						{
+							id = "duckdb",
 							type = "duckdb",
 							name = "duckduck",
 							url = "~/duck.db",
 						},
-					}),
+					}, "duckduck"),
+					source.MemorySource:new({
+						{
+							id = "athena_nx",
+							name = "athena_nx",
+							type = "athena",
+							url = "athena://eu-central-1?work_group=nxAthena-v1",
+						},
+					}, "athena_nx"),
 				},
 			})
 			require("custom.dbee")
