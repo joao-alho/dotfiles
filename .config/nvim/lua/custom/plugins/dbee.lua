@@ -41,7 +41,7 @@ return {
 							id = "athena_nx",
 							name = "athena_nx",
 							type = "athena",
-							url = "athena://eu-central-1?work_group=nxAthena-v1",
+							url = "athena://eu-central-1?work_group=nxAthena-v1&read_only=false",
 						},
 					}, "athena_nx"),
 				},
