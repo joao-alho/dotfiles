@@ -1,6 +1,6 @@
 return {
 	{
-		"kndndrj/nvim-dbee",
+		dir = "~/tests/neovim/nvim-dbee/plugin/",
 		enabled = true,
 		dependencies = { "MunifTanjim/nui.nvim" },
 		build = function()
