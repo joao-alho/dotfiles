@@ -21,7 +21,8 @@ return {
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-buffer",
 			{
-				dir = "~/tests/neovim/cmp-dbee/",
+				-- "MattiasMTS/cmp-dbee",
+				dir = "~/projects/nvim/cmp-dbee/",
 				dependencies = {
 					{ "kndndrj/nvim-dbee" },
 				},

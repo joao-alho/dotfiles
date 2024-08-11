@@ -1,6 +1,7 @@
 return {
 	{
-		dir = "~/tests/neovim/nvim-dbee/plugin/",
+		dir = "~/projects/nvim/nvim-dbee/plugin/",
+		event = "VeryLazy",
 		enabled = true,
 		dependencies = { "MunifTanjim/nui.nvim" },
 		build = function()
