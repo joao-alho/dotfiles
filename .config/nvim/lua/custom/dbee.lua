@@ -37,10 +37,10 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	group = vim.api.nvim_create_augroup("dbee", { clear = true }),
 	pattern = { "sql" },
 	callback = function()
+		local dbee = require("dbee")
 		vim.keymap.set({ "n" }, "<leader>de", function()
 			local query = M.get_query()
-			local command = string.format("Dbee execute %s", query)
-			vim.api.nvim_command(command)
+			dbee.execute(query)
 		end, { desc = "[D]bee [e]xecute query under cursor" })
 	end,
 })

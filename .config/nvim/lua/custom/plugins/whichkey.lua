@@ -19,7 +19,7 @@ return {
 				{ "<leader>s", group = "[S]earch" },
 				{ "<leader>w", group = "[W]orkspace" },
 				{ "<leader>t", group = "[T]erminal" },
-				{ "<leader>d", group = "[D]bee" },
+				{ "<leader>d", group = "[D]bee", mode = { "n", "v" } },
 				{ "K", desc = "Hover Documentation" },
 			})
 		end,
