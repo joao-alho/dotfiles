@@ -21,7 +21,7 @@ return {
 				},
 				result = {
 					mappings = {
-						{ key = "p", mode = "", action = "page_next" },
+						{ key = "pn", mode = "", action = "page_next" },
 						{ key = "pp", mode = "", action = "page_prev" },
 						{ key = "pl", mode = "", action = "page_last" },
 						{ key = "pf", mode = "", action = "page_first" },
@@ -42,7 +42,7 @@ return {
 							id = "athena_nx",
 							name = "athena_nx",
 							type = "athena",
-							url = "athena://eu-central-1?work_group=nxAthena-v1&read_only=false",
+							url = "awsathena://eu-central-1?work_group=nxAthena-v1&read_only=false",
 						},
 					}, "athena_nx"),
 				},
