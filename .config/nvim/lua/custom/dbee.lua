@@ -42,5 +42,11 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 			local query = M.get_query()
 			dbee.execute(query)
 		end, { desc = "[D]bee [e]xecute query under cursor" })
+		vim.keymap.set({ "n", "v" }, "<leader>df", function()
+			vim.cmd("norm! f│")
+		end, { desc = "[D]bee [f]orward one column" })
+		vim.keymap.set({ "n", "v" }, "<leader>db", function()
+			vim.cmd("norm! F│")
+		end, { desc = "[D]bee [b]ackward one column" })
 	end,
 })

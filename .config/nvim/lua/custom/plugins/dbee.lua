@@ -27,7 +27,7 @@ return {
 						{ key = "pf", mode = "", action = "page_first" },
 					},
 				},
-				default_connection = "athena_nx",
+				default_connection = "memory_source_athena_nx1",
 				sources = {
 					source.MemorySource:new({
 						{
@@ -45,6 +45,7 @@ return {
 							url = "awsathena://eu-central-1?work_group=nxAthena-v1&read_only=false",
 						},
 					}, "athena_nx"),
+					require("dbee.sources").EnvSource:new("DBEE_CONNECTIONS"),
 				},
 			})
 			require("custom.dbee")
