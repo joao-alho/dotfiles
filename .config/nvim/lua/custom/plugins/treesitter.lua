@@ -5,7 +5,6 @@ return {
 		opts = {
 			ensure_installed = {
 				"bash",
-				"c",
 				"html",
 				"lua",
 				"markdown",
@@ -18,9 +17,10 @@ return {
 				"toml",
 				"yaml",
 			},
-			auto_install = true,
+
+			auto_install = false,
 			highlight = { enable = true },
-			indent = { enable = true },
+			indent = { enable = false },
 		},
 		config = function(_, opts)
 			-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
