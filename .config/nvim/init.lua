@@ -49,19 +49,16 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
-
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
+vim.opt.hlsearch = true
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
-vim.opt.hlsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
+-- vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
+-- vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
@@ -85,7 +82,7 @@ vim.keymap.set({ "n", "v" }, "<C-u>", "<C-u>zz", { desc = "Remap jump half-page 
 vim.keymap.set({ "n", "v" }, "<C-d>", "<C-d>zz", { desc = "Remap jump half-page and center", noremap = true })
 vim.keymap.set({ "n", "v" }, "G", "Gzz", { desc = "Remap jump to end of buffer and center", noremap = true })
 vim.keymap.set({ "n", "v", "o" }, "H", "^", { desc = "Remap jump to first non empty char of line", noremap = true })
-vim.keymap.set({ "n", "v", "o", "t" }, "L", "$", { desc = "Remap jump to end of line", noremap = true })
+vim.keymap.set({ "n", "v", "o" }, "L", "$", { desc = "Remap jump to end of line", noremap = true })
 vim.keymap.set("n", "<leader>o", "i<CR><Esc>O", { desc = "Insert line at cursor" })
 
 -- Highlight when yanking (copying) text
@@ -160,5 +157,3 @@ require("lazy").setup({
 	},
 	{ import = "custom/plugins" },
 }, { change_detection = { notify = false } })
-
--- vim: set ts=4 sts=4 sw=4 et:
