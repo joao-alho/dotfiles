@@ -1,0 +1,11 @@
+local iron = require("iron.core")
+
+vim.keymap.set("n", "<leader>is", iron.send_paragraph, { desc = "[I]ron [s]end paragraph" })
+vim.keymap.set("n", "<leader>ih", function()
+	iron.hide_repl("scala")
+end, { desc = "[I]ron [h]ide repl" })
+vim.keymap.set("n", "<leader>if", function()
+	iron.focus_on("scala")
+end, { desc = "[I]ron [f]ocus repl" })
+vim.keymap.set("v", "<leader>is", iron.visual_send, { desc = "[I]ron [s]end visual selection" })
+vim.keymap.set("n", "<leader>ic", "<cmd>IronSend :quit<CR>", { desc = "[I]ron [c]lose repl" })
