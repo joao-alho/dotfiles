@@ -202,7 +202,7 @@ return {
 				opts = {},
 			},
 		},
-		ft = { "scala", "sbt" },
+		ft = { "scala", "sbt", "sc" },
 		opts = function()
 			local metals_config = require("metals").bare_config()
 
