@@ -9,7 +9,7 @@ export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 ZSH_THEME=""
 
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-plugins=(git zsh-autosuggestions poetry)
+plugins=(git zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
@@ -21,6 +21,7 @@ alias "vi=nvim"
 alias "vim=nvim"
 alias "copy=xargs echo -n | xclip -sel clipboard -i"
 alias "paste=xclip -sel clipboard -o"
+alias "kc=kubectl"
 #Star Ship
 eval "$(starship init zsh)"
 

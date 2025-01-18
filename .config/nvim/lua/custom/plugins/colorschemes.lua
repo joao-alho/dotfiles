@@ -8,10 +8,16 @@ return {
 		config = function()
 			local scheme = require("rose-pine")
 			scheme.setup({
-				styles = {
-					transparency = false,
+				enable = {
+					terminal = true,
+					italic = true,
+					bold = true,
 				},
-				dim_inactive_windows = true,
+				styles = {
+					transparency = true,
+				},
+				dim_inactive_windows = false,
+				extend_background_behind_borders = true,
 			})
 			vim.cmd.colorscheme("rose-pine")
 			-- You can configure highlights by doing something like
