@@ -3,17 +3,44 @@
 	email = j.pd.alho@gmail.com
 [init]
 	defaultBranch = main
-[oh-my-zsh]
-	hide-dirty = 1
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
+[push]
+	default = simple
+	autoSetupRemote = true
+	followTags = true
 [pull]
 	rebase = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
 [remote "origin"]
 	#fetch = +refs/heads/*:refs/remotes/origin/*
+[help]
+	autocorrect = prompt
+[commit]
+	verbose = true
 [rerere]
 	enabled = true
+	autoupdate = true
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updaterefs = true
+[merge]
+	conflictstyle = zdiff3
 [alias]
 	tree = log --graph --decorate --pretty=oneline --abbrev-commit --pretty=format:'%C(auto)%h%d %s %C(bold black)<%aN>%Creset'
-
 [color]
 	pager = no
 [core]
@@ -22,3 +49,5 @@
 	diff = false
 	config = false
 	branch = false
+[oh-my-zsh]
+	hide-dirty = 1
