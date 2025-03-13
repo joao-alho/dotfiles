@@ -1,7 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.local/bin/:$HOME/bin:/usr/local/bin:$PATH
 # Add go to PATH
-export PATH=$PATH:$HOME/.local/go/bin:$HOME/go/bin
+export PATH=$HOME/.local/go/bin:$HOME/go/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
@@ -24,6 +24,8 @@ alias "paste=xclip -sel clipboard -o"
 alias "kc=kubectl"
 #Star Ship
 eval "$(starship init zsh)"
+#Zoxide
+eval "$(zoxide init zsh)"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
