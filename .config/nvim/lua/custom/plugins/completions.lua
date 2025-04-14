@@ -37,46 +37,66 @@ return {
 				opts = {},
 			},
 			"folke/lazydev.nvim",
+			dependencies = {
+				-- "MattiasMTS/cmp-dbee",
+				dir = "~/projects/nvim/cmp-dbee/",
+				enabled = true,
+				ft = { "sql" },
+				dev = true,
+				dependencies = { "kndndrj/nvim-dbee" },
+			},
+			"xzbdmw/colorful-menu.nvim",
 		},
 		opts = {
-			keymap = { preset = "default" },
+			keymap = {
+				preset = "default",
+				["<C-space>"] = { "show" },
+			},
 			appearance = {
 				nerd_font_variant = "mono",
 			},
 			completion = {
-				-- By default, you may press `<c-space>` to show the documentation.
-				-- Optionally, set `auto_show = true` to show the documentation after a delay.
-				documentation = { auto_show = false, auto_show_delay_ms = 500 },
+				documentation = { auto_show = false, window = { border = "single" } },
+				list = {
+					selection = {
+						preselect = false,
+						auto_insert = false,
+					},
+				},
+				menu = {
+					auto_show = false,
+					draw = {
+						columns = { { "kind_icon" }, { "label", gap = 1 } },
+						components = {
+							label = {
+								text = function(ctx)
+									return require("colorful-menu").blink_components_text(ctx)
+								end,
+								highlight = function(ctx)
+									return require("colorful-menu").blink_components_highlight(ctx)
+								end,
+							},
+						},
+						treesitter = { "lsp" },
+					},
+					border = "single",
+				},
+				ghost_text = { show_with_menu = false },
 			},
 			sources = {
 				default = { "lsp", "path", "snippets", "lazydev" },
+				per_filetype = { sql = { name = "cmp-dbee", module = "blink.compat.source" } },
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
+					dbee = {
+						name = "cmp-dbee",
+						module = "blink.compat.source",
+					},
 				},
 			},
 			snippets = { preset = "luasnip" },
 			fuzzy = { implementation = "prefer_rust_with_warning" },
-			-- Shows a signature help window while you type arguments for a function
-			signature = { enabled = true },
-		},
-	},
-	{
-		"saghen/blink.cmp",
-		dependencies = {
-			"MattiasMTS/cmp-dbee",
-			dir = "~/projects/nvim/cmp-dbee/",
-			enabled = false,
-			ft = { "sql" },
-			dev = true,
-			dependencies = { "kndndrj/nvim-dbee" },
-		},
-		opts = {
-			sources = {
-				compat = { "dbee" },
-				providers = {
-					dbee = { name = "dbee", module = "blink.compat.source" },
-				},
-			},
+			signature = { enabled = true, window = { border = "single" } },
 		},
 	},
 }
