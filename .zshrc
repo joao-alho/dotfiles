@@ -5,6 +5,7 @@ export PATH=$HOME/.local/go/bin:$HOME/go/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+export MANPAGER='nvim +Man!'
 
 ZSH_THEME=""
 

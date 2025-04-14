@@ -1,27 +1,22 @@
-return {
-	{ -- Useful plugin to show you pending keybinds.
-		"folke/which-key.nvim",
-		event = "VimEnter", -- Sets the loading event to 'VimEnter'
-		lazy = true,
-		opts = {
-			icons = { mappings = false },
+return { -- Adds git related signs to the gutter, as well as utilities for managing changes
+	"lewis6991/gitsigns.nvim",
+	opts = {
+		signs = {
+			add = { text = "+" },
+			change = { text = "~" },
+			delete = { text = "_" },
+			topdelete = { text = "‾" },
+			changedelete = { text = "~" },
 		},
-		config = function() -- This is the function that runs, AFTER loading
-			local wk = require("which-key")
-			wk.setup({
-				icons = { mappings = false },
-			})
-
-			wk.add({
-				{ "<leader>c", group = "[C]ode" },
-				{ "<leader>d", group = "[D]oument" },
-				{ "<leader>r", group = "[R]ename" },
-				{ "<leader>s", group = "[S]earch" },
-				{ "<leader>w", group = "[W]orkspace" },
-				{ "<leader>t", group = "[T]erminal" },
-				{ "<leader>d", group = "[D]bee" },
-				{ "K", desc = "Hover Documentation" },
-			})
-		end,
+		current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+		current_line_blame_opts = {
+			virt_text = true,
+			virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+			delay = 500, -- unit in ms
+			ignore_whitespace = false,
+			virt_text_priority = 200,
+		},
+		current_line_blame_formatter = "  <author>, <author_time:%Y-%m-%d> - <summary>",
+		max_file_length = 40000, -- Disable if file is longer than this (in lines)
 	},
 }
