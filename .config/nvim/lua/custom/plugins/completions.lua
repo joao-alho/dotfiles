@@ -37,17 +37,25 @@ return {
 				opts = {},
 			},
 			"folke/lazydev.nvim",
-			dependencies = {
-				-- "MattiasMTS/cmp-dbee",
-				dir = "~/projects/nvim/cmp-dbee/",
+			"xzbdmw/colorful-menu.nvim",
+			{
+				dir = "~/projects/nvim/cmp-dbee",
 				enabled = true,
 				ft = { "sql" },
 				dev = true,
 				dependencies = { "kndndrj/nvim-dbee" },
+				opts = {},
 			},
-			"xzbdmw/colorful-menu.nvim",
 		},
 		opts = {
+			sources = {
+				default = { "lsp", "path", "snippets" },
+				per_filetype = { lua = { "lazydev" }, sql = { "dbee", "buffer" } },
+				providers = {
+					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
+					dbee = { name = "cmp-dbee", module = "blink.compat.source" },
+				},
+			},
 			keymap = {
 				preset = "default",
 				["<C-space>"] = { "show" },
@@ -79,20 +87,9 @@ return {
 						},
 						treesitter = { "lsp" },
 					},
-					border = "single",
+					border = "rounded",
 				},
 				ghost_text = { show_with_menu = false },
-			},
-			sources = {
-				default = { "lsp", "path", "snippets", "lazydev" },
-				per_filetype = { sql = { name = "cmp-dbee", module = "blink.compat.source" } },
-				providers = {
-					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
-					dbee = {
-						name = "cmp-dbee",
-						module = "blink.compat.source",
-					},
-				},
 			},
 			snippets = { preset = "luasnip" },
 			fuzzy = { implementation = "prefer_rust_with_warning" },
