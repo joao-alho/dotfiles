@@ -50,7 +50,7 @@ return {
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-					map("K", vim.lsp.buf.hover, "Hover Documentation")
+					-- map("K", vim.lsp.buf.hover, "Hover Documentation")
 
 					-- The following two autocommands are used to highlight references of the
 					-- word under your cursor when your cursor rests there for a little while.

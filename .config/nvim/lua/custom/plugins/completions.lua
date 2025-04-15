@@ -37,7 +37,7 @@ return {
 				opts = {},
 			},
 			"folke/lazydev.nvim",
-			"xzbdmw/colorful-menu.nvim",
+			{ "xzbdmw/colorful-menu.nvim", opts = { max_width = 100 } },
 			{
 				dir = "~/projects/nvim/cmp-dbee",
 				enabled = true,
@@ -59,6 +59,9 @@ return {
 			keymap = {
 				preset = "default",
 				["<C-space>"] = { "show" },
+				["K"] = { "show_documentation" },
+				["<C-f>"] = { "scroll_documentation_down" },
+				["<C-b>"] = { "scroll_documentation_up" },
 			},
 			appearance = {
 				nerd_font_variant = "mono",
@@ -85,7 +88,6 @@ return {
 								end,
 							},
 						},
-						treesitter = { "lsp" },
 					},
 					border = "rounded",
 				},
