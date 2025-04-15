@@ -21,10 +21,20 @@ return {
 				},
 				result = {
 					mappings = {
-						{ key = "pn", mode = "", action = "page_next" },
-						{ key = "pp", mode = "", action = "page_prev" },
-						{ key = "pl", mode = "", action = "page_last" },
-						{ key = "pf", mode = "", action = "page_first" },
+						{ key = "<leader>pn", mode = "", action = "page_next" },
+						{ key = "<leader>pp", mode = "", action = "page_prev" },
+						{ key = "<leader>pl", mode = "", action = "page_last" },
+						{ key = "<leader>pf", mode = "", action = "page_first" },
+						-- yank rows as csv/json
+						{ key = "<leader>yj", mode = "n", action = "yank_current_json" },
+						{ key = "<leader>yj", mode = "v", action = "yank_selection_json" },
+						{ key = "<leader>YJ", mode = "", action = "yank_all_json" },
+						{ key = "<leader>yc", mode = "n", action = "yank_current_csv" },
+						{ key = "<leader>yc", mode = "v", action = "yank_selection_csv" },
+						{ key = "<leader>YC", mode = "", action = "yank_all_csv" },
+
+						-- cancel current call execution
+						{ key = "<C-c>", mode = "", action = "cancel_call" },
 					},
 				},
 				default_connection = "memory_source_athena_nx1",
