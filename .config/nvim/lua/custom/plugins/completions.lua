@@ -70,12 +70,12 @@ return {
 				documentation = { auto_show = false, window = { border = "single" } },
 				list = {
 					selection = {
-						preselect = false,
+						preselect = true,
 						auto_insert = false,
 					},
 				},
 				menu = {
-					auto_show = false,
+					auto_show = true,
 					draw = {
 						columns = { { "kind_icon" }, { "label", gap = 1 } },
 						components = {
