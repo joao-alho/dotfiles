@@ -15,10 +15,22 @@ vim.opt.mouse = "a"
 
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
-
 -- Sync clipboard between OS and Neovim.
 --  See `:help 'clipboard'`
 vim.opt.clipboard = "unnamedplus"
+if string.find(vim.loop.os_uname().release, "WSL2") ~= nil then
+	-- stylua: ignore start
+	vim.g.clipboard = {
+		name = "wsl clipboard",
+		copy = { ["+"] = { "clip.exe" }, ["*"] = { "clip.exe" } },
+		paste = {
+			["+"] = { 'powershell.exe', '-NoLogo', '-NoProfile', '-Command', '[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r",""))' },
+			["*"] = { 'powershell.exe', '-NoLogo', '-NoProfile', '-Command', '[Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r",""))' }
+		},
+		cache_enabled = 0,
+	}
+	-- stylua: ignore end
+end
 
 -- Enable break indent
 vim.opt.breakindent = true
