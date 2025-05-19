@@ -58,8 +58,8 @@ return {
 			},
 			keymap = {
 				preset = "default",
-				["<C-space>"] = { "show" },
-				["K"] = { "show_documentation" },
+				["<C-space>"] = { "show", "show_documentation" },
+				-- ["K"] = { "show_documentation" },
 				["<C-f>"] = { "scroll_documentation_down" },
 				["<C-b>"] = { "scroll_documentation_up" },
 			},
@@ -95,7 +95,7 @@ return {
 			},
 			snippets = { preset = "luasnip" },
 			fuzzy = { implementation = "prefer_rust_with_warning" },
-			signature = { enabled = true, window = { border = "single" } },
+			signature = { enabled = false, window = { border = "single" } },
 		},
 	},
 }

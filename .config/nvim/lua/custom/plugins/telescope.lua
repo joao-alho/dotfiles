@@ -50,6 +50,7 @@ return {
 						".venv",
 						"target",
 					},
+					border = false,
 				},
 				pickers = { find_files = { hidden = true } },
 				extensions = {
