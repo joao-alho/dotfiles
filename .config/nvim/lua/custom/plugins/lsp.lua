@@ -170,6 +170,7 @@ return {
 						},
 					},
 				},
+				kotlin_lsp = {},
 				rust_analyzer = {},
 				lua_ls = {
 					-- cmd = {...},
