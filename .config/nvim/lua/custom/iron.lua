@@ -56,7 +56,7 @@ vim.keymap.set("n", "<leader>if", function()
 	vim.cmd.stopinsert()
 end, { desc = "[I]ron [f]ocus repl" })
 vim.keymap.set("n", "<leader>ic", function()
-	iron.send(ft, ":quit")
+	iron.send(ft, "spark.close();exit")
 	repl_on = false
 	iron_win_nr = nil
 end, { desc = "[I]ron [c]lose repl" })

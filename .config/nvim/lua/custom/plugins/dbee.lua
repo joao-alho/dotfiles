@@ -49,6 +49,14 @@ return {
 					}, "duckduck"),
 					source.MemorySource:new({
 						{
+							id = "athena_nx_us",
+							name = "athena_nx_us",
+							type = "athena",
+							url = "awsathena://us-east-2?work_group=nxAthena-v1&read_only=false",
+						},
+					}, "athena_nx_us"),
+					source.MemorySource:new({
+						{
 							id = "athena_nx",
 							name = "athena_nx",
 							type = "athena",

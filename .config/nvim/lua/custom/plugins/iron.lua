@@ -10,9 +10,16 @@ return {
 					scratch_repl = true,
 					repl_definition = {
 						scala = {
-							command = { "docker", "exec", "-it", "local-spark", "./iceberg-shell.sh" },
-							open = ":paste",
-							close = "\04",
+							-- command = { "docker", "exec", "-it", "local-spark", "./iceberg-shell.sh" },
+							command = {
+								"spark-connect-shell",
+								"--jars",
+								"*/build/libs/*.jar",
+								"--remote",
+								"sc://localhost:15002",
+							},
+							open = "{",
+							close = "}",
 						},
 					},
 					ignore_blank_lines = true,
