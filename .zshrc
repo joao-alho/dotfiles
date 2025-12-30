@@ -23,6 +23,7 @@ alias "vim=nvim"
 alias "copy=xargs echo -n | xclip -sel clipboard -i"
 alias "paste=xclip -sel clipboard -o"
 alias "kc=kubectl"
+alias "p=podman"
 #Star Ship
 eval "$(starship init zsh)"
 #Zoxide
