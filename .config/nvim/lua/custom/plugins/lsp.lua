@@ -157,7 +157,7 @@ return {
 						hoverProvider = false,
 					},
 				},
-				pyright = {
+				ty = {
 					capabilities = {
 						workspace = { didChangeWatchedFiles = { dynamicRegistration = false } },
 					},
@@ -165,7 +165,7 @@ return {
 						python = {
 							analysis = { ignore = { "*" } },
 						},
-						pyright = {
+						ty = {
 							disableOrganizeImports = true,
 						},
 					},

@@ -1,6 +1,6 @@
 return {
 	{
-		dir = "~/projects/nvim/nvim-dbee/",
+		dir = "~/projects/personal/nvim-dbee/",
 		lazy = true,
 		enabled = true,
 		dependencies = { "MunifTanjim/nui.nvim" },

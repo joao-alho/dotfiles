@@ -39,7 +39,7 @@ return {
 			"folke/lazydev.nvim",
 			{ "xzbdmw/colorful-menu.nvim", opts = { max_width = 100 } },
 			{
-				dir = "~/projects/nvim/cmp-dbee",
+				dir = "~/projects/personal/cmp-dbee",
 				enabled = true,
 				ft = { "sql" },
 				dev = true,
