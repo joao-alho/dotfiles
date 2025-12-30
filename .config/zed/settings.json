@@ -1,0 +1,145 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "show_edit_predictions": false,
+  "bottom_dock_layout": "contained",
+  "preview_tabs": {
+    "enabled": true,
+  },
+  "tab_bar": {
+    "show_nav_history_buttons": false,
+    "show": true,
+  },
+  "tabs": {
+    "show_close_button": "hidden",
+  },
+  "title_bar": {
+    "show_user_picture": true,
+    "show_sign_in": false,
+  },
+  "debugger": {
+    "button": true,
+  },
+  "search": {
+    "button": false,
+  },
+  "diagnostics": {
+    "button": true,
+  },
+  "terminal": {
+    "button": false,
+  },
+  "status_bar": {
+    "cursor_position_button": true,
+  },
+  "toolbar": {
+    "code_actions": true,
+    "agent_review": true,
+    "quick_actions": false,
+  },
+  "gutter": {
+    "runnables": true,
+  },
+  "agent": {
+    "default_profile": "write",
+    "always_allow_tool_actions": true,
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gemini-3-pro-preview",
+    },
+    "enable_feedback": false,
+    "button": false,
+    "commit_message_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4o-mini",
+    },
+    "model_parameters": [],
+  },
+  "notification_panel": {
+    "button": false,
+  },
+  "collaboration_panel": {
+    "button": false,
+  },
+  "git_panel": {
+    "dock": "right",
+    "button": false,
+  },
+  "outline_panel": {
+    "folder_icons": false,
+    "button": false,
+  },
+  "project_panel": {
+    "button": false,
+    "hide_root": true,
+    "show_diagnostics": "off",
+    "starts_open": false,
+    "indent_size": 10.0,
+    "git_status": true,
+    "folder_icons": false,
+    "file_icons": false,
+    "entry_spacing": "standard",
+    "hide_gitignore": true,
+    "default_width": 240.0,
+    "dock": "right",
+  },
+  "git": {
+    "inline_blame": {
+      "delay_ms": 2,
+    },
+  },
+  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
+  "icon_theme": {
+    "mode": "system",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)",
+  },
+  "vim_mode": true,
+  "vim": {
+    "toggle_relative_line_numbers": false,
+    "use_smartcase_find": true,
+    "default_mode": "normal",
+  },
+  "base_keymap": "VSCode",
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "system",
+    "light": "Gruvbox Light",
+    "dark": "Rosé Pine",
+  },
+  "lsp": {
+    "metals": {
+      "settings": {},
+    },
+    "kotlin-lsp": {
+      "binary": {
+        "path": "~/misc/lsp/kotlin/kotlin-lsp.sh",
+        "arguments": ["--stdio"],
+      },
+    },
+    "kotlin-language-server": {
+      "settings": {
+        "compiler": {
+          "jvm": {
+            "target": "18",
+          },
+        },
+      },
+    },
+  },
+  "languages": {
+    "Kotlin": {
+      "language_servers": ["kotlin-language-server"],
+    },
+    "Python": {
+      "language_servers": ["ty", "!basedpyright"],
+    },
+  },
+}

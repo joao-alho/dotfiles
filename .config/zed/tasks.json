@@ -1,0 +1,31 @@
+// Project tasks configuration. See https://zed.dev/docs/tasks for documentation.
+//
+// Example:
+[
+  {
+    "label": "Dbee",
+    "use_new_terminal": true,
+    "command": "nvim -c 'lua require(\"dbee\").toggle()'",
+    "env": {},
+    "allow_concurrent_runs": false,
+    "reveal_target": "center",
+    "shell": {
+      "program": "zsh"
+    },
+    "show_summary": false
+  },
+  {
+    "label": "Spark Connect",
+    "use_new_terminal": false,
+    "command": "~/misc/spark/spark-4.0.1-bin-hadoop3-connect/bin/spark-connect-shell --remote sc://localhost:15002",
+    "env": {
+      "SPARK_HOME": "~/misc/spark/spark-4.0.1-bin-hadoop3-connect/"
+    },
+    "allow_concurrent_runs": false,
+    "reveal_target": "dock",
+    "shell": {
+      "program": "zsh"
+    },
+    "show_summary": false
+  }
+]

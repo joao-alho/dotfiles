@@ -1,0 +1,112 @@
+// Zed keymap
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // search
+      "ctrl-space s f": "file_finder::Toggle",
+      "ctrl-space s g": "workspace::NewSearch",
+      // terminal
+      "ctrl-space t n": "workspace::NewTerminal",
+      "ctrl-space t t": "terminal_panel::Toggle",
+      "ctrl-space t f": "terminal_panel::ToggleFocus",
+      "ctrl-space g": "git_panel::ToggleFocus",
+      "ctrl-space -": "project_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "GitPanel",
+    "bindings": {
+      "escape escape": "git_panel::Close"
+    }
+  },
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "L": "vim::EndOfLine",
+      "H": "vim::FirstNonWhitespace",
+      "j": ["workspace::SendKeystrokes", "j z z"],
+      "k": ["workspace::SendKeystrokes", "k z z"],
+      "ctrl-u": ["workspace::SendKeystrokes", "ctrl-u z z"],
+      "ctrl-d": ["workspace::SendKeystrokes", "ctrl-d z z"],
+      // send current line to terminal
+      "space i s": ["workspace::SendKeystrokes", "shift-y space t f ctrl-v"],
+      "space o": ["workspace::SendKeystrokes", "i enter escape shift-o"]
+    }
+  },
+  {
+    "context": "vim_mode == insert && !menu",
+    "bindings": {
+      "j j": "vim::NormalBefore",
+      "ctrl-space ctrl-space": "editor::ShowCompletions"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      // custom so that it cnan be called below
+      "alt-y": "editor::CopyAndTrim",
+      // send selection to terminal
+      "space i s": ["workspace::SendKeystrokes", "alt-y space t f ctrl-v"]
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      // on windows these are not being sent to the terminal
+      "ctrl-p": ["terminal::SendKeystroke", "ctrl-p"],
+      "ctrl-n": ["terminal::SendKeystroke", "ctrl-n"],
+      "escape escape": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    // need to add !Terminal otherwise ctrl-w has a delay in the terminal
+    "context": "Dock && !Terminal",
+    "bindings": {
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w l": "workspace::ActivatePaneRight",
+      "ctrl-w k": "workspace::ActivatePaneUp",
+      "ctrl-w j": "workspace::ActivatePaneDown"
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-w": null
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-w": null
+    }
+  },
+  {
+    "context": "(Editor && showing_completions)",
+    "bindings": {
+      "ctrl-y": "editor::ConfirmCompletion"
+    }
+  },
+  {
+    "context": "(Editor && renaming)",
+    "bindings": {
+      "ctrl-y": "editor::ConfirmRename"
+    }
+  },
+  {
+    "bindings": {
+      "ctrl-y": [
+        "picker::ConfirmInput",
+        {
+          "secondary": true
+        }
+      ]
+    }
+  },
+  {
+    "context": "(Editor && showing_code_actions)",
+    "bindings": {
+      "ctrl-y": "editor::ConfirmCodeAction"
+    }
+  }
+]
