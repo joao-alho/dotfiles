@@ -2,21 +2,28 @@
 export PATH=$HOME/.local/bin/:$HOME/bin:/usr/local/bin:$PATH
 # Add go to PATH
 export PATH=$HOME/.local/go/bin:$HOME/go/bin:$PATH
+# opencode
+export PATH=/home/jalho/.opencode/bin:$PATH
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+
+
 export MANPAGER='nvim +Man!'
 
-ZSH_THEME=""
-
-DISABLE_UNTRACKED_FILES_DIRTY="true"
+### oh-my-zsh setup
+export ZSH="$HOME/.oh-my-zsh"
+export ZSH_THEME=""
+export DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
+
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
 else
   export EDITOR='nvim'
  fi
+
+### aliases
 alias "ll=ls -al"
 alias "vi=nvim"
 alias "vim=nvim"
@@ -24,6 +31,7 @@ alias "copy=xargs echo -n | xclip -sel clipboard -i"
 alias "paste=xclip -sel clipboard -o"
 alias "kc=kubectl"
 alias "p=podman"
+
 #Star Ship
 eval "$(starship init zsh)"
 #Zoxide
