@@ -1,8 +1,10 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
+local mux = wezterm.mux
 
 config.color_scheme = "rose-pine"
-config.window_background_opacity = 0.90
+config.window_background_opacity = 0.70
+config.macos_window_background_blur = 20
 config.font = wezterm.font({ family = "JetBrains Mono", weight = "Regular" })
 config.font_size = 12
 
@@ -17,23 +19,8 @@ config.window_frame = {
 
 config.wsl_domains = {
 	{
-		-- The name of this specific domain.  Must be unique amonst all types
-		-- of domain in the configuration file.
 		name = "WSL:Ubuntu",
-
-		-- The name of the distribution.  This identifies the WSL distribution.
-		-- It must match a valid distribution from your `wsl -l -v` output in
-		-- order for the domain to be useful.
 		distribution = "Ubuntu",
-
-		-- The username to use when spawning commands in the distribution.
-		-- If omitted, the default user for that distribution will be used.
-
-		-- username = "hunter",
-
-		-- The current working directory to use when spawning commands, if
-		-- the SpawnCommand doesn't otherwise specify the directory.
-
 		default_cwd = "~",
 	},
 }
@@ -41,7 +28,14 @@ config.wsl_domains = {
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 	config.default_domain = "WSL:Ubuntu"
 	config.window_decorations = "RESIZE"
+elseif wezterm.target_triple == "aarch64-apple-darwin" then
+	config.window_decorations = "RESIZE"
 end
+
+wezterm.on("gui-startup", function(cmd)
+	local tab, pane, window = mux.spawn_window(cmd or {})
+	window:gui_window():maximize()
+end)
 
 wezterm.on("update-status", function(window)
 	-- Grab the utf8 character for the "powerline" left facing
