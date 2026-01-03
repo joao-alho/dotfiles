@@ -4,21 +4,20 @@
     "context": "Workspace",
     "bindings": {
       // search
-      "ctrl-space s f": "file_finder::Toggle",
-      "ctrl-space s g": "workspace::NewSearch",
+      "space s f": "file_finder::Toggle",
+      "space s g": "workspace::NewSearch",
       // terminal
-      "ctrl-space t n": "workspace::NewTerminal",
-      "ctrl-space t t": "terminal_panel::Toggle",
-      "ctrl-space t f": "terminal_panel::ToggleFocus",
-      "ctrl-space g": "git_panel::ToggleFocus",
-      "ctrl-space -": "project_panel::ToggleFocus"
-    }
+      "space t n": "workspace::NewTerminal",
+      "space t t": "terminal_panel::Toggle",
+      "space g": "git_panel::ToggleFocus",
+      "space -": "project_panel::ToggleFocus",
+    },
   },
   {
     "context": "GitPanel",
     "bindings": {
-      "escape escape": "git_panel::Close"
-    }
+      "escape escape": "git_panel::Close",
+    },
   },
   {
     "context": "VimControl && !menu",
@@ -31,24 +30,28 @@
       "ctrl-d": ["workspace::SendKeystrokes", "ctrl-d z z"],
       // send current line to terminal
       "space i s": ["workspace::SendKeystrokes", "shift-y space t f ctrl-v"],
-      "space o": ["workspace::SendKeystrokes", "i enter escape shift-o"]
-    }
+      "space o": ["workspace::SendKeystrokes", "i enter escape shift-o"],
+    },
   },
   {
     "context": "vim_mode == insert && !menu",
     "bindings": {
       "j j": "vim::NormalBefore",
-      "ctrl-space ctrl-space": "editor::ShowCompletions"
-    }
+      "space space": "editor::ShowCompletions",
+    },
   },
   {
     "context": "Editor && vim_mode == visual",
     "bindings": {
       // custom so that it cnan be called below
-      "alt-y": "editor::CopyAndTrim",
+      "alt-y": "editor::Copy",
       // send selection to terminal
-      "space i s": ["workspace::SendKeystrokes", "alt-y space t f ctrl-v"]
-    }
+      "space i s": [
+        "workspace::SendKeystrokes",
+        //todo: remap cmd-v to ctrl-v in macos
+        "alt-y space t t { \n cmd-v \n} enter",
+      ],
+    },
   },
   {
     "context": "Terminal",
@@ -56,8 +59,8 @@
       // on windows these are not being sent to the terminal
       "ctrl-p": ["terminal::SendKeystroke", "ctrl-p"],
       "ctrl-n": ["terminal::SendKeystroke", "ctrl-n"],
-      "escape escape": "terminal_panel::ToggleFocus"
-    }
+      "escape escape": "terminal_panel::ToggleFocus",
+    },
   },
   {
     // need to add !Terminal otherwise ctrl-w has a delay in the terminal
@@ -66,47 +69,47 @@
       "ctrl-w h": "workspace::ActivatePaneLeft",
       "ctrl-w l": "workspace::ActivatePaneRight",
       "ctrl-w k": "workspace::ActivatePaneUp",
-      "ctrl-w j": "workspace::ActivatePaneDown"
-    }
+      "ctrl-w j": "workspace::ActivatePaneDown",
+    },
   },
   {
     "context": "Pane",
     "bindings": {
-      "ctrl-w": null
-    }
+      "ctrl-w": null,
+    },
   },
   {
     "context": "Workspace",
     "bindings": {
-      "ctrl-w": null
-    }
+      "ctrl-w": null,
+    },
   },
   {
     "context": "(Editor && showing_completions)",
     "bindings": {
-      "ctrl-y": "editor::ConfirmCompletion"
-    }
+      "ctrl-y": "editor::ConfirmCompletion",
+    },
   },
   {
     "context": "(Editor && renaming)",
     "bindings": {
-      "ctrl-y": "editor::ConfirmRename"
-    }
+      "ctrl-y": "editor::ConfirmRename",
+    },
   },
   {
     "bindings": {
       "ctrl-y": [
         "picker::ConfirmInput",
         {
-          "secondary": true
-        }
-      ]
-    }
+          "secondary": true,
+        },
+      ],
+    },
   },
   {
     "context": "(Editor && showing_code_actions)",
     "bindings": {
-      "ctrl-y": "editor::ConfirmCodeAction"
-    }
-  }
+      "ctrl-y": "editor::ConfirmCodeAction",
+    },
+  },
 ]

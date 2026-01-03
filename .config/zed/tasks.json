@@ -10,22 +10,20 @@
     "allow_concurrent_runs": false,
     "reveal_target": "center",
     "shell": {
-      "program": "zsh"
+      "program": "zsh",
     },
-    "show_summary": false
+    "show_summary": false,
   },
   {
     "label": "Spark Connect",
     "use_new_terminal": false,
-    "command": "~/misc/spark/spark-4.0.1-bin-hadoop3-connect/bin/spark-connect-shell --remote sc://localhost:15002",
-    "env": {
-      "SPARK_HOME": "~/misc/spark/spark-4.0.1-bin-hadoop3-connect/"
-    },
+    "command": "~/projects/personal/scripts/spark/remote-connect.sh",
+    "args": ["live-prd-nexiot4usa.us-east-2"],
     "allow_concurrent_runs": false,
     "reveal_target": "dock",
     "shell": {
-      "program": "zsh"
+      "program": "zsh",
     },
-    "show_summary": false
-  }
+    "show_summary": false,
+  },
 ]

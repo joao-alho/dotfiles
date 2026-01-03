@@ -1,9 +1,9 @@
-// Zed settings
+// zed settings
 //
-// For information on how to configure Zed, see the Zed
+// for information on how to configure zed, see the zed
 // documentation: https://zed.dev/docs/configuring-zed
 //
-// To see all of Zed's default settings without changing your
+// to see all of zed's default settings without changing your
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
@@ -94,11 +94,11 @@
       "delay_ms": 2,
     },
   },
-  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
+  "buffer_font_family": "jetbrainsmono nerd font mono",
   "icon_theme": {
-    "mode": "system",
-    "light": "Zed (Default)",
-    "dark": "Zed (Default)",
+    "mode": "dark",
+    "light": "zed (default)",
+    "dark": "zed (default)",
   },
   "vim_mode": true,
   "vim": {
@@ -106,39 +106,50 @@
     "use_smartcase_find": true,
     "default_mode": "normal",
   },
+  "use_auto_surround": false,
+  "use_autoclose": false,
+  "preferred_line_length": 100,
   "base_keymap": "VSCode",
+  "inline_code_actions": false,
   "ui_font_size": 16,
   "buffer_font_size": 15,
   "theme": {
     "mode": "system",
-    "light": "Gruvbox Light",
+    "light": "Rosé Pine",
     "dark": "Rosé Pine",
   },
   "lsp": {
-    "metals": {
-      "settings": {},
-    },
+    "metals": {},
     "kotlin-lsp": {
       "binary": {
-        "path": "~/misc/lsp/kotlin/kotlin-lsp.sh",
+        "path": "kotlin-lsp",
         "arguments": ["--stdio"],
       },
     },
-    "kotlin-language-server": {
-      "settings": {
-        "compiler": {
-          "jvm": {
-            "target": "18",
-          },
+    "ruff": {
+      "initialization_options": {
+        "settings": {
+          "exclude": ["*"],
         },
       },
     },
   },
   "languages": {
     "Kotlin": {
-      "language_servers": ["kotlin-language-server"],
+      "language_servers": ["kotlin-lsp", "!kotlin-language-server"],
+      "format_on_save": "off",
+      "formatter": "auto",
+      "code_actions_on_format": { "source.organizeImports": true },
+    },
+    "Scala": {
+      "format_on_save": "off",
+      "formatter": "auto",
+      "code_actions_on_format": { "source.organizeImports": true },
     },
     "Python": {
+      "format_on_save": "off",
+      "formatter": "ruff",
+      "code_actions_on_format": { "source.organizeImports": true },
       "language_servers": ["ty", "!basedpyright"],
     },
   },
