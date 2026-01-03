@@ -3,8 +3,6 @@ local config = wezterm.config_builder()
 local mux = wezterm.mux
 
 config.color_scheme = "rose-pine"
-config.window_background_opacity = 0.70
-config.macos_window_background_blur = 20
 config.font = wezterm.font({ family = "JetBrains Mono", weight = "Regular" })
 config.font_size = 12
 
@@ -28,8 +26,13 @@ config.wsl_domains = {
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 	config.default_domain = "WSL:Ubuntu"
 	config.window_decorations = "RESIZE"
+	config.window_background_opacity = 0.70
 elseif wezterm.target_triple == "aarch64-apple-darwin" then
 	config.window_decorations = "RESIZE"
+	config.window_background_opacity = 0.70
+	config.macos_window_background_blur = 20
+else
+	config.window_background_opacity = 0.90
 end
 
 wezterm.on("gui-startup", function(cmd)
