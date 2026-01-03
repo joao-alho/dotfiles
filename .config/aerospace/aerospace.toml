@@ -43,6 +43,7 @@ on-mode-changed = []
     alt-3 = 'workspace terminal'
     alt-8 = 'workspace coding'
     alt-9 = 'workspace obsidian'
+    alt-slash = 'workspace tmp'
 
     alt-shift-1 = 'move-node-to-workspace browser'
     alt-shift-2 = 'move-node-to-workspace slack'
@@ -52,7 +53,7 @@ on-mode-changed = []
     # move a window to a temporary workspace
     alt-shift-slash = 'move-node-to-workspace tmp'
 
-    alt-tab = 'workspace-back-and-forth'
+    # alt-tab = 'workspace --wrap-around next'
     alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
     alt-shift-semicolon = 'mode service'
 
