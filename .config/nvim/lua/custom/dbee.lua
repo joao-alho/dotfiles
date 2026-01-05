@@ -9,8 +9,9 @@ end, { desc = "[D]bee [t]oggle" })
 -- only add this keymap when FileType is sql
 local M = {}
 function M.get_query()
-	local ts_utils = require("nvim-treesitter.ts_utils")
-	local current_node = ts_utils.get_node_at_cursor()
+	-- local ts_utils = require("nvim-treesitter.ts_utils")
+	-- local current_node = ts_utils.get_node_at_cursor()
+	local current_node = vim.treesitter.get_node({ bufnr = 0, lang = "sql" })
 
 	local last_statement = nil
 	while current_node do

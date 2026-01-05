@@ -2,10 +2,10 @@ return {
 	{
 		dir = "~/projects/personal/nvim-dbee/",
 		lazy = true,
-		enabled = true,
+		-- enabled = true,
 		dependencies = { "MunifTanjim/nui.nvim" },
 		build = function()
-			require("dbee").install()
+			require("dbee").install("go")
 		end,
 		config = function()
 			local source = require("dbee.sources")

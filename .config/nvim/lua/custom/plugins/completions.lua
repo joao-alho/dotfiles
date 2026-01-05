@@ -80,6 +80,7 @@ return {
 						columns = { { "kind_icon" }, { "label", gap = 1 } },
 						components = {
 							label = {
+								width = { fill = true, max = 80 },
 								text = function(ctx)
 									return require("colorful-menu").blink_components_text(ctx)
 								end,
