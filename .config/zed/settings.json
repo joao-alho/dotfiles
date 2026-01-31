@@ -148,7 +148,7 @@
     },
     "Python": {
       "format_on_save": "off",
-      "formatter": "ruff",
+      "formatter": "language_server",
       "code_actions_on_format": { "source.organizeImports": true },
       "language_servers": ["ty", "!basedpyright"],
     },
