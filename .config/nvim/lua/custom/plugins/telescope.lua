@@ -42,13 +42,13 @@ return {
 			require("telescope").setup({
 				defaults = {
 					file_ignore_patterns = {
-						"node_modules",
-						"build",
-						"dist",
-						".idea",
-						".git",
-						".venv",
-						"target",
+						"node_modules/",
+						"build/",
+						"dist/",
+						".idea/",
+						".git/",
+						".venv/",
+						"target/",
 					},
 					border = false,
 				},
