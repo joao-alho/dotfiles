@@ -49,5 +49,13 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		vim.keymap.set({ "n", "v" }, "<leader>db", function()
 			vim.cmd("norm! F│")
 		end, { desc = "[D]bee [b]ackward one column" })
+		vim.keymap.set({ "n" }, "<leader>dy", function()
+			dbee.store("table", "yank", { from = 0, to = -1 })
+			local s = vim.fn.getreg('"')
+			s = s:gsub("│", "|")
+			s = s:gsub("┼", "|")
+			s = s:gsub("─", "-")
+			vim.fn.setreg("+", s)
+		end, { desc = "[D]bee [y]ank current query result, and format to markdown" })
 	end,
 })

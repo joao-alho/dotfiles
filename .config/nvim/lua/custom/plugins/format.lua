@@ -41,14 +41,11 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				python = { "ruff_format" },
-				sql = { "sql_formatter" },
+				sql = { "sqruff" },
 			},
 			formatters = {
-				sql_formatter = {
-					append_args = {
-						"-c",
-						'{"language":"trino","tabWidth":2,"keywordCase":"upper","linesBetweenQueries":1,"dataTypeCase":"upper","functionCase":"lower","expressionWidth":80}',
-					},
+				sqruff = {
+					prepend_args = { "--dialect", "athena" },
 				},
 			},
 		},

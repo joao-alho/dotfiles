@@ -13,8 +13,8 @@ return {
 							-- command = { "docker", "exec", "-it", "local-spark", "./iceberg-shell.sh" },
 							command = {
 								"spark-connect-shell",
-								"--jars",
-								"*/build/libs/*.jar",
+								-- "--jars",
+								-- "*/build/libs/*.jar",
 								"--remote",
 								"sc://localhost:15002",
 							},

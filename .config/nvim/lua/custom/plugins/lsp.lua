@@ -25,7 +25,10 @@ return {
 					-- Jump to the definition of the word under your cursor.
 					--  This is where a variable was first declared, or where a function is defined, etc.
 					--  To jump back, press <C-T>.
-					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+					map("gd", function()
+						require("telescope.builtin").lsp_definitions()
+						vim.cmd("normal! zz")
+					end, "[G]oto [D]efinition")
 
 					-- Find references for the word under your cursor.
 					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
@@ -49,8 +52,7 @@ return {
 					)
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-					-- map("K", vim.lsp.buf.hover, "Hover Documentation")
+					map("K", vim.lsp.buf.hover, "Hover Documentation")
 
 					-- The following two autocommands are used to highlight references of the
 					-- word under your cursor when your cursor rests there for a little while.
@@ -80,18 +82,6 @@ return {
 								vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
 							end,
 						})
-					end
-					-- The following attempts to setup the necessary environment variables
-					-- to run pyright with Poetry virtual environment
-					-- looks kind of funky but at the moment the Lsp client attaches
-					-- it has alrady started and so the poetry env variables do not take effect until restart
-					if vim.fn.executable("poetry") == 1 and client and client.name == "pyright" then
-						local path = vim.fn.trim(vim.fn.system("poetry env info -p 2> /dev/null"))
-						if path and not vim.env.VIRTUAL_ENV then
-							vim.env.VIRTUAL_ENV = path
-							vim.env.PATH = path .. "/bin:" .. vim.env.PATH
-							vim.cmd(":LspRestart")
-						end
 					end
 				end,
 			})
@@ -240,6 +230,10 @@ return {
 				showImplicitArguments = false,
 				enableSemanticHighlighting = false,
 				excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+				automaticImportBuild = "all",
+				enableIndentOnPaste = true,
+				shutdownBloopOnEditorClose = false,
+				targetBuildTool = "gradle",
 			}
 
 			metals_config.init_options.statusBarProvider = "off"

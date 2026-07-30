@@ -64,6 +64,7 @@ return {
 						},
 					}, "athena_nx"),
 					require("dbee.sources").EnvSource:new("DBEE_CONNECTIONS"),
+					require("dbee.sources").FileSource:new(vim.fn.stdpath("state") .. "/dbee/persistence.json"),
 				},
 			})
 			require("custom.dbee")
