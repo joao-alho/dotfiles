@@ -7,8 +7,15 @@ export PATH=/home/jalho/.opencode/bin:$PATH
 # Path to your oh-my-zsh installation.
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 
-
 export MANPAGER='nvim +Man!'
+
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt SHARE_HISTORY
+
 
 ### oh-my-zsh setup
 export ZSH="$HOME/.oh-my-zsh"
